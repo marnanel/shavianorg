@@ -20,6 +20,8 @@ sub _fetch_initials {
         push @result, [ lc $letter->[0], $letter->[0] ];
     }
 
+    @result = sort { $a->[0] cmp $b->[0] } @result;
+
     return { breadcrumbs => [], links => \@result };
 
 }
@@ -81,8 +83,8 @@ sub _fetch_prefix {
     }
 
     my @result;
-    for my $title (sort keys %titles) {
-        push @result, [$title, $title];
+    for my $subtitle (sort keys %titles) {
+        push @result, ["$title/$subtitle", $subtitle];
     }
 
     # Also, look up the ID of this page
@@ -123,6 +125,18 @@ sub fetch {
     } else {
         return _fetch_prefix($db, $string);
     }
+}
+
+sub etag {
+    my $db = ShavianOrg::Database->new();
+
+    my $dbh = $db->dbh();
+
+    my $sth = $dbh->prepare('select max(old_id) from pagecontent');
+    $sth->execute();
+    my ($tag) = $sth->fetchrow_array();
+
+    return "W\"shaw$tag\"";
 }
 
 1;

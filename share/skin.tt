@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-GB" xml:lang="en-GB">
 <head><title>[% TITLE %]- Shavian</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" href="/static/eirastyle"/></head>
+<link rel="stylesheet" href="/static/eirastyle"/>[% headers %]</head>
 <body>
 <div class="menu"><a href="/learn/">learn</a> &middot; <a href="/translate/">translate</a> &middot; <a href="/wiki/Main_Page">wiki</a> &middot; <a href="/games/">games</a> &middot; <a href="/feeds">feeds</a> &middot; <a href="/shawscript/">archives</a> &middot; <a href="/film/sita/">film</a> &middot; <a href="/questions/">questions</a> &middot; <a href="/credits">credits</a></div>
 
@@ -28,15 +28,27 @@ pw_d.projectwonderful_background_color = "#002";
 <div class="photocredit"><a href="http://www.flickr.com/photos/stephoto/220381401/">Photo &copy; Steve Johnson, cc-by-sa.</a></div>
 <div class="content">
 
+[% IF links %]
+<ul>
+[% FOREACH link IN links %]
+<li><a href="/read/[% link.0 %]">[% link.1 %]</a></li>
+[% END %]
+</ul>
+[% ELSE %]
 [% FOREACH para IN paras -%]
+<div>
 <div lang="en-latn">
-[% FOREACH word IN para -%][% IF word.type=='f' -%][% word.value %][% ELSIF word.type=='s' -%][% word.latn %][% ELSIF word.type=='u' -%][% word.latn %][% ELSIF word.type=='d' -%](DAB)[% END %][% END %]
+[% FOREACH word IN para -%][% IF word.type=='f' -%][% word.value %][% ELSIF word.type=='s' -%][% word.latn %][% ELSIF word.type=='u' -%][% word.latn %][% ELSIF word.type=='d' -%][% word.latn %][% END %][% END %]
 </div>
 <div lang="en-shaw">
-[% FOREACH word IN para -%][% IF word.type=='f' -%][% word.value %][% ELSIF word.type=='s' -%][% word.shaw %][% ELSIF word.type=='u' -%][% word.latn %][% ELSIF word.type=='d' -%](DAB)[% END %][% END %]
+  [% FOREACH word IN para -%][% IF word.type=='f' -%][% word.value %][% ELSIF word.type=='s' -%][% word.shaw %][% ELSIF word.type=='u' -%]<a href="#" class="w u" onclick="return g([% word.count%])">[% word.latn %]</a>[% ELSIF word.type=='d' -%]<a href="#" class="w d" onclick="return g([% word.count%])">[% word.latn %]</a>[% END %][% END %]
 </div>
-
+</div>
+[% END %]
 [% END %]
 
-<br style="clear:both"/>
+[% IF gcontrol %][% INCLUDE gcontrol.tt %][% END %]
+[% IF jscrib %][% INCLUDE jscrib.tt %][% END %]
+
+<br style="clear:both"/>[% footers %]
 </div></body></html>

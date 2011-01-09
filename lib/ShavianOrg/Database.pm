@@ -5,6 +5,7 @@ use warnings;
 
 use DBI;
 use File::Slurp;
+use Encode;
 
 sub new {
 
@@ -39,6 +40,25 @@ sub fetch {
     $sth->execute($namespace, $name);
 
     return $sth->fetchrow_array();
+}
+
+sub fetch_spelling {
+    my ($self, $name) = @_;
+
+    my $page = $self->fetch(ucfirst $name, 0);
+
+    return undef unless $page;
+
+    $page = Encode::decode('UTF-8', $page);
+    my ($spelling) = $page =~ m/\{\{Shaw\|(.*?)\}\}/;
+
+    # FIXME: Also handle per-alphabet lookup
+    # (special cases, etc.)  This could be
+    # useful elsewhere, though for the cases
+    # we currently use this function for
+    # it wouldn't be.
+
+    return $spelling;
 }
 
 sub close {
