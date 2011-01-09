@@ -1,0 +1,16 @@
+</div><div id="g" class="hidden"> 
+<div id="gx"><a href="#" onclick="showBox(0);return false">X</a></div>
+<div id="gh">Something goes here.</div>
+<div id="gg"><span id="ga">a</span><span id="gm">b</span><span id="gz">c</span></div>
+<ul id="gl">
+  <li>wombats</li>
+</ul>
+<p><input id="gt" onkeydown="return gt(event)" type="text" />
+<input id="gs" type="submit" value="&rarr;" onclick="h('')" /></p>
+<div id="gw" class="hidden">
+<span id="p1">.</span>
+<span id="p2">.</span>
+<span id="p3">.</span>
+<span id="p4">.</span>
+</div>
+</div>
