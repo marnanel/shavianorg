@@ -1,0 +1,4 @@
+This is the back-end code that runs http://shavian.org.
+As well as this code, there is also some Python
+which is gradually being merged into this codebase,
+and a MediaWiki installation for the actual wiki.
